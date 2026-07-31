@@ -1,0 +1,100 @@
+======================================================================
+1. STRUCTURE
+======================================================================
+Shape: (1000, 21)
+
+Dtypes:
+checking_account_status     object
+duration_months              int64
+credit_history              object
+purpose                     object
+credit_amount                int64
+savings_account             object
+employment_since            object
+installment_rate_pct         int64
+personal_status_sex         object
+other_debtors_guarantors    object
+present_residence_since      int64
+property                    object
+age_years                    int64
+other_installment_plans     object
+housing                     object
+existing_credits_count       int64
+job                         object
+num_dependents               int64
+telephone                   object
+foreign_worker              object
+target                       int64
+
+======================================================================
+2. MISSING VALUES
+======================================================================
+checking_account_status     0
+duration_months             0
+credit_history              0
+purpose                     0
+credit_amount               0
+savings_account             0
+employment_since            0
+installment_rate_pct        0
+personal_status_sex         0
+other_debtors_guarantors    0
+present_residence_since     0
+property                    0
+age_years                   0
+other_installment_plans     0
+housing                     0
+existing_credits_count      0
+job                         0
+num_dependents              0
+telephone                   0
+foreign_worker              0
+target                      0
+
+Total missing cells: 0 out of 21000 (0.00%)
+Note: the UCI German Credit dataset ships with no missing values by construction (Hofmann pre-cleaned it for StatLog). This is verified above, not assumed -- a real-world pull from a live banking system would not be this clean.
+
+======================================================================
+3. CLASS BALANCE (target: 0=good credit risk, 1=bad credit risk)
+======================================================================
+target
+0    700
+1    300
+target
+0    70.0
+1    30.0
+This is a 70/30 imbalance, not extreme, but enough that accuracy alone is a misleading metric -- a model predicting 'good' for everyone would score 70% accuracy while catching zero defaulters.
+
+======================================================================
+4. NUMERIC DISTRIBUTIONS (describe)
+======================================================================
+                          count      mean          std    min     25%     50%      75%      max
+duration_months          1000.0    20.903    12.058814    4.0    12.0    18.0    24.00     72.0
+credit_amount            1000.0  3271.258  2822.736876  250.0  1365.5  2319.5  3972.25  18424.0
+installment_rate_pct     1000.0     2.973     1.118715    1.0     2.0     3.0     4.00      4.0
+present_residence_since  1000.0     2.845     1.103718    1.0     2.0     3.0     4.00      4.0
+age_years                1000.0    35.546    11.375469   19.0    27.0    33.0    42.00     75.0
+existing_credits_count   1000.0     1.407     0.577654    1.0     1.0     1.0     2.00      4.0
+num_dependents           1000.0     1.155     0.362086    1.0     1.0     1.0     1.00      2.0
+
+======================================================================
+5. NUMERIC FEATURE CORRELATION WITH TARGET (point-biserial via .corr)
+======================================================================
+duration_months            0.215
+credit_amount              0.155
+age_years                 -0.091
+installment_rate_pct       0.072
+existing_credits_count    -0.046
+num_dependents            -0.003
+present_residence_since    0.003
+All correlations are weak in isolation (|r| < 0.35) -- expected, since credit risk here is driven by categorical factors (checking account status, credit history, purpose) more than by single numeric fields.
+
+======================================================================
+6. CATEGORICAL SNAPSHOT: default rate by checking_account_status
+======================================================================
+                         bad_rate  count
+checking_account_status                 
+< 0 DM                      0.493    274
+0-200 DM                    0.390    269
+>= 200 DM                   0.222     63
+no checking account         0.117    394

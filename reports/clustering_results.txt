@@ -1,0 +1,39 @@
+K-Means borrower segmentation (features: duration_months, credit_amount, installment_rate_pct, present_residence_since, age_years, existing_credits_count, num_dependents)
+Note: numeric attributes only -- categorical one-hot columns were excluded from the clustering feature set because their large count (41 dummy columns vs 7 numeric) would dominate Euclidean distance and wash out the numeric signal; this is a deliberate scope choice, not an oversight.
+
+  k     inertia  silhouette
+  2      5865.4      0.2306
+  3      4995.0      0.2542
+  4      4307.8      0.2028
+  5      3851.2      0.1951
+  6      3562.3      0.1998
+  7      3312.5      0.1891
+  8      3154.1      0.1907
+
+Best k by silhouette score: 3 (silhouette=0.2542)
+A silhouette in this range (well under 0.5) means clusters are real but overlapping, not cleanly separated -- expected for demographic/financial survey data with no natural gaps between groups. This is reported honestly, not smoothed over.
+
+Cluster sizes (k=3):
+cluster
+0    173
+1    686
+2    141
+
+Cluster profiles (mean of numeric features):
+         duration_months  credit_amount  installment_rate_pct  present_residence_since  age_years  existing_credits_count  num_dependents
+cluster                                                                                                                                  
+0                   38.9         7936.9                   2.6                      2.8       35.5                     1.4             1.1
+1                   17.0         2187.8                   3.1                      2.8       34.9                     1.4             1.0
+2                   18.1         2818.0                   2.8                      2.9       38.8                     1.6             2.0
+
+Cluster bad-risk rate (target NOT used to fit clusters -- joined back only to describe the segments after the fact):
+cluster
+0    0.474
+1    0.257
+2    0.298
+
+Most common loan purpose per cluster:
+cluster
+0          car (used)
+1    radio/television
+2           car (new)

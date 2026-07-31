@@ -1,0 +1,135 @@
+[
+  {
+    "model": "Majority-class baseline (always predict 'good')",
+    "accuracy": 0.7,
+    "precision_bad": 0.0,
+    "recall_bad": 0.0,
+    "f1_bad": 0.0,
+    "confusion_matrix": [
+      [
+        140,
+        0
+      ],
+      [
+        60,
+        0
+      ]
+    ],
+    "business_cost": 300
+  },
+  {
+    "model": "Logistic Regression (default)",
+    "accuracy": 0.775,
+    "precision_bad": 0.6531,
+    "recall_bad": 0.5333,
+    "f1_bad": 0.5872,
+    "confusion_matrix": [
+      [
+        123,
+        17
+      ],
+      [
+        28,
+        32
+      ]
+    ],
+    "business_cost": 157,
+    "roc_auc": 0.8058
+  },
+  {
+    "model": "Logistic Regression (class_weight='balanced')",
+    "accuracy": 0.745,
+    "precision_bad": 0.5517,
+    "recall_bad": 0.8,
+    "f1_bad": 0.6531,
+    "confusion_matrix": [
+      [
+        101,
+        39
+      ],
+      [
+        12,
+        48
+      ]
+    ],
+    "business_cost": 99,
+    "roc_auc": 0.8067
+  },
+  {
+    "model": "Decision Tree (default, unpruned)",
+    "accuracy": 0.62,
+    "precision_bad": 0.3824,
+    "recall_bad": 0.4333,
+    "f1_bad": 0.4062,
+    "confusion_matrix": [
+      [
+        98,
+        42
+      ],
+      [
+        34,
+        26
+      ]
+    ],
+    "business_cost": 212,
+    "train_accuracy": 1.0
+  },
+  {
+    "model": "Decision Tree (max_depth=4, balanced)",
+    "accuracy": 0.63,
+    "precision_bad": 0.4255,
+    "recall_bad": 0.6667,
+    "f1_bad": 0.5195,
+    "confusion_matrix": [
+      [
+        86,
+        54
+      ],
+      [
+        20,
+        40
+      ]
+    ],
+    "business_cost": 154,
+    "roc_auc": 0.673,
+    "train_accuracy": 0.735
+  },
+  {
+    "model": "Random Forest (default, n_estimators=200)",
+    "accuracy": 0.765,
+    "precision_bad": 0.6757,
+    "recall_bad": 0.4167,
+    "f1_bad": 0.5155,
+    "confusion_matrix": [
+      [
+        128,
+        12
+      ],
+      [
+        35,
+        25
+      ]
+    ],
+    "business_cost": 187,
+    "roc_auc": 0.786
+  },
+  {
+    "model": "Random Forest (class_weight='balanced')",
+    "accuracy": 0.765,
+    "precision_bad": 0.6857,
+    "recall_bad": 0.4,
+    "f1_bad": 0.5053,
+    "confusion_matrix": [
+      [
+        129,
+        11
+      ],
+      [
+        36,
+        24
+      ]
+    ],
+    "business_cost": 191,
+    "roc_auc": 0.7934
+  }
+]

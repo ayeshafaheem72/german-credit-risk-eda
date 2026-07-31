@@ -1,0 +1,43 @@
+==========================================================================================
+01_default_rate_by_checking_status
+==========================================================================================
+checking_account_status  n_customers  n_bad  bad_rate
+                 < 0 DM          274    135     0.493
+               0-200 DM          269    105     0.390
+              >= 200 DM           63     14     0.222
+    no checking account          394     46     0.117
+
+==========================================================================================
+02_avg_amount_duration_by_purpose
+==========================================================================================
+            purpose  n_customers  avg_credit_amount  avg_duration_months  bad_rate
+          education           50             3180.0                 21.1     0.440
+          car (new)          234             3063.0                 18.5     0.380
+            repairs           22             2728.0                 19.1     0.364
+           business           97             4158.0                 26.9     0.351
+furniture/equipment          181             3067.0                 19.3     0.320
+   radio/television          280             2488.0                 20.0     0.221
+         car (used)          103             5370.0                 26.1     0.165
+
+==========================================================================================
+03_default_rate_by_age_bucket
+==========================================================================================
+age_bucket  n_customers  bad_rate  avg_credit_amount
+     25-34          399     0.328             3293.0
+     35-44          251     0.231             3425.0
+     45-54          122     0.230             3175.0
+       55+           79     0.278             3411.0
+  under 25          149     0.409             2959.0
+
+==========================================================================================
+04_housing_job_risk_matrix
+==========================================================================================
+ housing                                       job  n_customers  bad_rate
+for free                 skilled employee/official           63     0.429
+    rent                 skilled employee/official          115     0.426
+     own management/self-employed/highly qualified           94     0.362
+    rent                        unskilled resident           38     0.342
+for free management/self-employed/highly qualified           33     0.333
+    rent management/self-employed/highly qualified           21     0.286
+     own                        unskilled resident          154     0.247
+     own                 skilled employee/official          452     0.243

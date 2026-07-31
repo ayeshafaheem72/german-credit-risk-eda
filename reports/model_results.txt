@@ -1,0 +1,29 @@
+====================================================================================================
+Model                                               Acc  Prec(bad)  Rec(bad)  F1(bad)  ROC-AUC   Cost
+====================================================================================================
+Majority-class baseline (always predict 'good')   0.700      0.000     0.000    0.000      nan    300
+Logistic Regression (default)                     0.775      0.653     0.533    0.587    0.806    157
+Logistic Regression (class_weight='balanced')     0.745      0.552     0.800    0.653    0.807     99
+Decision Tree (default, unpruned)                 0.620      0.382     0.433    0.406      nan    212
+Decision Tree (max_depth=4, balanced)             0.630      0.425     0.667    0.519    0.673    154
+Random Forest (default, n_estimators=200)         0.765      0.676     0.417    0.515    0.786    187
+Random Forest (class_weight='balanced')           0.765      0.686     0.400    0.505    0.793    191
+
+Confusion matrices ([[TN, FP], [FN, TP]], positive class = 1 = bad risk):
+  Majority-class baseline (always predict 'good'): [[140, 0], [60, 0]]
+  Logistic Regression (default): [[123, 17], [28, 32]]
+  Logistic Regression (class_weight='balanced'): [[101, 39], [12, 48]]
+  Decision Tree (default, unpruned): [[98, 42], [34, 26]]
+  Decision Tree (max_depth=4, balanced): [[86, 54], [20, 40]]
+  Random Forest (default, n_estimators=200): [[128, 12], [35, 25]]
+  Random Forest (class_weight='balanced'): [[129, 11], [36, 24]]
+
+Decision Tree overfitting check:
+  Unpruned tree -- train accuracy: 1.0000, test accuracy: 0.6200 (gap = 0.3800)
+  Depth=4 tree  -- train accuracy: 0.7350, test accuracy: 0.6300 (gap = 0.1050)
+
+Honest read:
+  - The majority-class baseline already scores 70% accuracy by predicting 'good' for everyone -- any model must be judged against that floor, not against 0%.
+  - The unpruned Decision Tree overfits clearly (train accuracy near-perfect, large train/test gap); it is not a usable model as-is.
+  - class_weight='balanced' consistently trades accuracy for recall on the bad-risk class -- exactly the trade a lender using the published cost matrix (missed defaulter costs 5x a wrongly-declined good customer) should want, but it is a real trade, not a free lunch: precision on 'bad' drops when recall rises.
+  - Business cost (5*FN + 1*FP on 200 test cases) is reported alongside standard metrics because accuracy/F1 alone do not reflect this dataset's stated cost asymmetry -- a model can have a *worse* F1 but a *lower* business cost.
