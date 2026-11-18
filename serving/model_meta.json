@@ -1,0 +1,9 @@
+{
+  "model": "LogisticRegression(class_weight='balanced') + one-hot/scaling pipeline",
+  "trained_at": "2026-11-18 15:01:11",
+  "test_rows": 200,
+  "recall_bad": 0.8,
+  "precision_bad": 0.5517,
+  "roc_auc": 0.8067,
+  "business_cost": 99
+}

@@ -198,3 +198,32 @@ ORDER BY bad_rate DESC;
 > versus the accuracy-optimized Random Forest (187 → 99, on the bank's own
 > 5:1 cost matrix) by trading 2 points of accuracy for 38 points of recall on
 > actual defaulters.
+
+## Serving: Gradio demo, Docker and CI
+
+The chosen model (balanced Logistic Regression, lowest business cost) is exported as one sklearn
+Pipeline, so preprocessing at inference can never drift from training.
+
+| Piece | File |
+|---|---|
+| Train and export model + metrics | `serving/train_and_export.py` |
+| Gradio demo with response time shown per request | `serving/app.py` |
+| Prediction and latency log for monitoring | `serving/logs/predictions.csv` (created at runtime) |
+| Latency benchmark over 1,000 single requests | `serving/benchmark.py` |
+| Regression tests (recall floor, cost vs baseline, latency) | `tests/test_serving.py` |
+| Container | `Dockerfile` |
+| CI on every push: tests, then Docker build | `.github/workflows/ci.yml` |
+
+Results on the held-out test set: recall on bad-risk applicants 80%, ROC-AUC 0.81, business cost 99
+vs 300 for the always-approve baseline.
+
+```bash
+pip install -r requirements-serving.txt
+python serving/train_and_export.py
+python serving/benchmark.py      # p50 / p95 latency
+python serving/app.py            # http://localhost:7860
+
+# or with Docker
+docker build -t credit-risk-demo .
+docker run -p 7860:7860 credit-risk-demo
+```
